@@ -1,9 +1,13 @@
 import { Foooter, Top, Container, Content, Bottom, style, style2 } from "./styles"
+import { useState} from 'react'
 import logo from "../../assets/image2vector3.svg"
 import { FaInstagram, FaFacebookF } from "react-icons/fa";
 import { FiMail } from "react-icons/fi";
+import { Modal } from "../Modal"
 
 export function Footer() {
+    const [show, setShow] = useState(false) 
+
     return (
         <Foooter>
             <Top>
@@ -16,7 +20,8 @@ export function Footer() {
                         </div>
                         <div id="text-footer">
                             <span>Quer trabalhar conosco?</span>
-                            <a href="#">Clique Aqui!</a>
+                            <button className="work-button" onClick={() => setShow(true)}>Clique Aqui!</button>
+                            <Modal onClose={() => setShow(false)} show={show} />
                         </div>
                         <div id="logo-social">
                             <div>

@@ -57,6 +57,7 @@ export const Aboutdiv = styled.div`
 
     @media (max-width: 500px){
         width: 320px;
+        margin-bottom: 30px;
     }
 
     span{

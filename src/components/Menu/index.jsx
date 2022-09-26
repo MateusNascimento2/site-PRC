@@ -21,9 +21,6 @@ export function Menu({ open }) {
         <span role="img" aria-label="Contato"></span>
         Contato
       </NavLink>
-      <button type="button">
-        Venda seu precatório
-      </button>
     </StyledMenu>
   );
 }

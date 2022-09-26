@@ -58,9 +58,14 @@ export const Content = styled.div`
             font-weight:700;
         }
 
-        a{
+        .work-button{
+            font-family: 'Lekton',sans-serif;
+            font-size: 24px;
+            background-color: var(--dim-gray);
+            border-style: none;
+            text-decoration: underline;
             text-transform: uppercase;
-            color: #FFFF;
+            color: #FFF;
             font-size:13px;
             line-height: 22px;
             text-underline-position: under;
