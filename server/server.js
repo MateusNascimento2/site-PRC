@@ -10,69 +10,97 @@ app.use(express.static("public"));
 app.use(express.urlencoded({ extended: true }));
 app.use(cookieParser());
 
-app.post("/api/contact/sendMail"), (req, res) => {
-    let name = req.body.Nome
-    let email = req.body.Email
-    let telephone = req.body.Telefone
-    let message = req.body.Mensagem
-    console.log(name)
-    console.log(email)
-    console.log(telephone)
-    console.log(message)
-
-}
-
 
 app.post("/api/sendMail", (req, res) => {
     let name = req.body.Nome
     let email = req.body.Email
     let telephone = req.body.Telefone
-    let file = req.files.curriculo
+    let message = req.body.Mensagem
+    let type = req.body.tipoForm
+    let toEmail = ["mateusnascar2@gmail.com", "mateusnascar@hotmail.com"]
     console.log(name)
     console.log(email)
     console.log(telephone)
-    console.log(file)
-    console.log(file.name)
-    
-    
-    let smtpTransport = nodemailer.createTransport({
-        host: 'mail.prcinvest.com.br',
-        port:465,
-        secure: true,
-        auth:{
-            user:'trabalhe.conosco@prcinvest.com.br',
-            pass:'mudar@123',
-        }
-    })
+    if (type == "1"){
+        console.log('estou aqui 1')
+        let file = req.files.curriculo
+        console.log(file)
+        let smtpTransport = nodemailer.createTransport({
+            host: 'mail.prcinvest.com.br',
+            port:465,
+            secure: true,
+            auth: {
+                user: 'trabalhe.conosco@prcinvest.com.br',
+                pass: 'mudar@123',
+            }
+        })
 
-    
-    let mailOptions = {
-        from: email,
-        to: 'mateusnascar2@gmail.com',
-        subject: `Mensagem de ${name} sobre vaga`,
-        html:`<h3>Informações</h3>
-                <ul>
-                <li>Nome: ${name}</li>
-                <li>Email: ${email}</li>
-                <li>Telefone: ${telephone}</li>
-                </ul>
-        `,
-        attachments: [{
-            filename: file.name,
-            content: file.data,
-        }]
+        let mailOptions = {
+            from: email,
+            to: toEmail[0],
+            subject: `Mensagem de ${name} sobre vaga`,
+            html:`<h3>Informações</h3>
+                    <ul>
+                    <li>Nome: ${name}</li>
+                    <li>Email: ${email}</li>
+                    <li>Telefone: ${telephone}</li>
+                    </ul>`,
+            attachments: [{
+                filename: file.name,
+                content: file.data,
+            }]
+        }
+
+        smtpTransport.sendMail(mailOptions, (error, response) => {
+            if (error){
+                response.send(error)
+            }
+            else { 
+                response.send('Sucesso')
+            }
+        })
+
+        smtpTransport.close();
+
+    } else {
+        console.log("estou aqui 2")
+
+        let smtpTransport = nodemailer. createTransport({
+            host: 'mail.prcinvest.com.br',
+            port: 465,
+            secure: true,
+            auth: {
+                user: 'trabalhe.conosco@prcinvest.com.br',
+                pass: 'mudar@123',
+            }
+        })
+
+        let mailOptions = {
+            from: email,
+            to: toEmail[0],
+            subject: `Mensagem de ${name}`,
+            html: `<h3>Informações</h3>
+                    <ul>
+                    <li>Nome: ${name}</li>
+                    <li>Email: ${email}</li>
+                    <li>Telefone: ${telephone}</li>
+                    <li>Mensagem: ${message}</li>
+                    <ul/>`
+        }
+
+        smtpTransport.sendMail(mailOptions, (error, response)=>{
+            if(error){
+                response.send(error)
+            }
+            else{
+                response.send('Sucesso')
+            }
+        })
+
+        smtpTransport.close();
+        
     }
-
-    smtpTransport.sendMail(mailOptions, (error, response)=>{
-        if(error){
-            response.send(error)
-        }
-        else{
-            response.send('Sucesso')
-        }
-    })
-
-    smtpTransport.close();
+    
 })
 
 

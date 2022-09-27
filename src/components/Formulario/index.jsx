@@ -25,6 +25,7 @@ export function Form() {
             form.append("Email", email);
             form.append("Telefone", telephone);
             form.append("Mensagem", message);
+            form.append("tipoForm", 2);
             
             setLoading(true);
             toast.success('Successfully created!');

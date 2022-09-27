@@ -33,6 +33,7 @@ export function Modal(props) {
             form.append("Email", email);
             form.append("Telefone", telephone);
             form.append("curriculo", selectedFile)
+            form.append("tipoForm", 1);
             
             setLoading(true);
             toast.success('Successfully created!');
